@@ -5,7 +5,7 @@ class Task(models.Model):
     description = models.TextField()
     channel_id = models.IntegerField()
     reward = models.IntegerField()
-    photo_url = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to="tasks/", null=True)
 
 class TaskCompletion(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)

@@ -12,4 +12,5 @@ class TaskSchema(Schema):
     name: str
     description: str
     channel_id: str | int
+    photo: str | None
     status: TaskStatus

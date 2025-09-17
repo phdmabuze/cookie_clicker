@@ -7,5 +7,5 @@ class UpgradeSchema(Schema):
     description: str
     price: int
     income_increase: int
-    photo_url: str | None
+    photo: str | None
     is_purchased: bool

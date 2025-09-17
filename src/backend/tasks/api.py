@@ -10,7 +10,7 @@ from ninja.errors import HttpError
 import utils
 from authorization.util import AuthBearer, validate_token
 from tasks.models import Task, TaskCompletion
-from tasks.schema import TaskSchema, TaskStatus
+from tasks.schemas import TaskSchema, TaskStatus
 from users.models import TgUser
 
 router = Router()
@@ -25,7 +25,8 @@ async def get_tasks(request, user_tg_id: int) -> list[TaskSchema]:
             name=t.name,
             description=t.description,
             channel_id=t.channel_id,
-            status=TaskStatus.READY
+            status=TaskStatus.READY,
+            photo=t.photo,
         )  async for t in Task.objects.all()
     }
     async for t in TaskCompletion.objects.select_related("task").filter(user_id=user_tg_id).filter(

@@ -22,8 +22,7 @@ class TasksTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), [])
 
-        test_task = await Task.objects.acreate(name="test_task", description="test_description", channel_id=1, reward=1,
-                                               photo_url="test_photo_url")
+        test_task = await Task.objects.acreate(name="test_task", description="test_description", channel_id=1, reward=1)
         response = await client.get(f"/{test_user.tg_id}/tasks")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()[0]["status"], "ready", response.json()[0])

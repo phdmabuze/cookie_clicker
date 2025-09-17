@@ -30,7 +30,7 @@ class UpgradesTest(TestCase):
         self.assertEqual(data["name"], test_upgrade.name)
         self.assertEqual(data["price"], test_upgrade.price)
         self.assertEqual(data["income_increase"], test_upgrade.income_increase)
-        self.assertEqual(data["photo_url"], test_upgrade.photo_url)
+        self.assertEqual(data["photo"], test_upgrade.photo)
         self.assertEqual(data["is_purchased"], False)
         self.assertEqual(data["id"], test_upgrade.id)
 

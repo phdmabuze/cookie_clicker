@@ -6,7 +6,7 @@ class Upgrade(models.Model):
     description = models.TextField(blank=True)
     price = models.IntegerField()
     income_increase = models.IntegerField()
-    photo_url = models.URLField(blank=True, null=True)
+    photo = models.ImageField(upload_to="upgrades/", null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

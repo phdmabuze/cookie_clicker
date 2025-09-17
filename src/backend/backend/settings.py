@@ -130,6 +130,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 BOT_TOKEN: str = os.getenv('BOT_TOKEN')
 JWT_PRIVATE_KEY: str = os.getenv('JWT_PRIVATE_KEY')
 JWT_ALGORITHM: str = os.getenv('JWT_ALGORITHM')
