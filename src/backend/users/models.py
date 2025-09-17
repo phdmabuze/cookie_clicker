@@ -12,7 +12,7 @@ class TgUser(models.Model):
     last_name = models.CharField(max_length=255, blank=True, null=True)
     photo_url = models.CharField(max_length=255, blank=True, null=True)
 
-    balance = models.IntegerField(default=0)
+    balance = models.BigIntegerField(default=0)
     income_per_second = models.IntegerField(default=1)
     balance_last_updated_at = models.DateTimeField(auto_now_add=True)
 
