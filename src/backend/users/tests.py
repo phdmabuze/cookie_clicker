@@ -1,11 +1,6 @@
-import time
-
-import jwt
-from django.conf import settings
 from django.test import TestCase, override_settings
 from ninja.testing import TestClient
 
-from authorization.util import build_token
 from users.api import router
 from users.models import TgUser
 

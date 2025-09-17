@@ -1,7 +1,6 @@
 import math
 
 from django.db import models
-from django.utils import timezone
 
 import utils
 
@@ -30,7 +29,8 @@ class TgUser(models.Model):
         return self.username or f"Player#{self.tg_id}"
 
     def get_balance_with_income(self):
-        return math.floor(self.balance + self.income_per_second * (utils.get_time() - self.balance_last_updated_at).total_seconds())
+        return math.floor(
+            self.balance + self.income_per_second * (utils.get_time() - self.balance_last_updated_at).total_seconds())
 
     def get_username(self):
         return self.username or f"Player#{self.tg_id}"

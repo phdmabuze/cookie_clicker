@@ -1,7 +1,9 @@
-from ninja import Schema
-from pydantic import BaseModel, PrivateAttr
 import json
 import urllib.parse
+
+from ninja import Schema
+from pydantic import BaseModel, PrivateAttr
+
 
 class TelegramUserSchema(BaseModel):
     id: int

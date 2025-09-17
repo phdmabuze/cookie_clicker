@@ -38,9 +38,11 @@ def build_token(user: TgUser) -> str:
         algorithm=settings.JWT_ALGORITHM,
     )
 
+
 class AuthBearer(HttpBearer):
     def authenticate(self, request, token: str) -> str:
         return token
+
 
 def validate_token(token: str, user_tg_id: int) -> dict:
     if settings.TESTING:
@@ -52,4 +54,3 @@ def validate_token(token: str, user_tg_id: int) -> dict:
     if payload.get("tg_id") != user_tg_id:
         raise HttpError(status_code=403, message="Forbidden")
     return payload
-

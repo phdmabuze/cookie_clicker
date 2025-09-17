@@ -22,6 +22,6 @@ from django.urls import path
 from backend.api import api
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("api/", api.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path("api/", api.urls),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

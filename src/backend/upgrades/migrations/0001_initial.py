@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -36,8 +35,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('purchased_at', models.DateTimeField(auto_now_add=True)),
-                ('upgrade', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='purchased_by', to='upgrades.upgrade')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_upgrades', to='users.tguser')),
+                ('upgrade', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='purchased_by',
+                                              to='upgrades.upgrade')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_upgrades',
+                                           to='users.tguser')),
             ],
             options={
                 'verbose_name': 'User Upgrade',

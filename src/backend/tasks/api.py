@@ -1,8 +1,6 @@
 import datetime
-from time import timezone
 
 from django.conf import settings
-from django.db import transaction
 from django.db.models import Q, F
 from ninja import Router
 from ninja.errors import HttpError
@@ -16,7 +14,7 @@ from users.models import TgUser
 router = Router()
 
 
-@router.get("/{user_tg_id}/tasks", auth=AuthBearer(), response={200: list[TaskSchema]})
+@router.get("/{user_tg_id}", auth=AuthBearer(), response={200: list[TaskSchema]})
 async def get_tasks(request, user_tg_id: int) -> list[TaskSchema]:
     validate_token(request.auth, user_tg_id)
     tasks: dict[int, TaskSchema] = {
@@ -26,7 +24,9 @@ async def get_tasks(request, user_tg_id: int) -> list[TaskSchema]:
             description=t.description,
             channel_id=t.channel_id,
             status=TaskStatus.READY,
+            reward=t.reward,
             photo=t.photo,
+            invite_link=t.invite_link,
         )  async for t in Task.objects.all()
     }
     async for t in TaskCompletion.objects.select_related("task").filter(user_id=user_tg_id).filter(
@@ -48,7 +48,7 @@ async def get_tasks(request, user_tg_id: int) -> list[TaskSchema]:
     return list(tasks.values())
 
 
-@router.post("/{user_tg_id}/tasks/{task_id}", auth=AuthBearer(), response={201: str})
+@router.post("/{user_tg_id}/start-completion/{task_id}", auth=AuthBearer(), response={201: str})
 async def start_task(request, user_tg_id: int, task_id: int) -> str:
     validate_token(request.auth, user_tg_id)
     if (

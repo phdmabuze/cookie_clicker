@@ -1,8 +1,6 @@
 from django.db import IntegrityError, transaction
-from django.db.models import F
-from django.utils import timezone
-from ninja import Router
 from django.db.models import Exists, OuterRef
+from ninja import Router
 from ninja.errors import HttpError
 
 import utils
@@ -13,7 +11,8 @@ from users.models import TgUser
 
 router = Router()
 
-@router.get("/{user_tg_id}/upgrades", auth=AuthBearer(), response={200: list[UpgradeSchema]})
+
+@router.get("/{user_tg_id}", auth=AuthBearer(), response={200: list[UpgradeSchema]})
 def get_user_upgrades(request, user_tg_id: int):
     validate_token(request.auth, user_tg_id)
 
@@ -27,7 +26,7 @@ def get_user_upgrades(request, user_tg_id: int):
     )
 
 
-@router.post("/{user_tg_id}/upgrades/{upgrade_id}", auth=AuthBearer(), response={201: str})
+@router.post("/{user_tg_id}/buy/{upgrade_id}", auth=AuthBearer(), response={201: str})
 def purchase_upgrade(request, user_tg_id: int, upgrade_id: int):
     validate_token(request.auth, user_tg_id)
     try:

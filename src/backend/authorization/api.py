@@ -1,13 +1,13 @@
+from django.conf import settings
 from ninja import Router
 from ninja.errors import HttpError
 
 from authorization.schemas import LoginDataSchema, WebAppInitDataSchema
 from authorization.util import validate_init_data_hash, build_token
-from django.conf import settings
-
 from users.models import TgUser
 
 router = Router()
+
 
 @router.post("/web-app", response={201: str})
 def auth_by_webapp_init_data(request, login_data: LoginDataSchema):
@@ -19,6 +19,9 @@ def auth_by_webapp_init_data(request, login_data: LoginDataSchema):
         raise HttpError(status_code=400, message="Init Data hash is invalid")
     try:
         user = TgUser.objects.get(tg_id=webapp_init_data.user.id)
+        if user.photo_url is None and webapp_init_data.user.photo_url is not None:
+            user.photo_url = webapp_init_data.user.photo_url
+            user.save()
     except TgUser.DoesNotExist:
         user = TgUser(
             tg_id=webapp_init_data.user.id,
@@ -29,4 +32,3 @@ def auth_by_webapp_init_data(request, login_data: LoginDataSchema):
         )
         user.save()
     return 201, build_token(user)
-

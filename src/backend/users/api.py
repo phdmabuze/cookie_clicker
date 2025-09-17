@@ -1,6 +1,3 @@
-import math
-
-from django.utils import timezone
 from ninja import Router
 
 from authorization.util import AuthBearer, validate_token
@@ -8,6 +5,7 @@ from users.models import TgUser
 from users.schemas import UserInfoSchema
 
 router = Router()
+
 
 @router.get("/{user_tg_id}", auth=AuthBearer())
 def get_user_info(request, user_tg_id: int) -> UserInfoSchema:

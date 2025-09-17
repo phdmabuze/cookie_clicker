@@ -1,0 +1,6 @@
+aiogram==3.22.0
+django-ninja==1.4.3
+pillow==11.3.0
+PyJWT==2.10.1
+python-dotenv==1.1.1
+psycopg2-binary>=2.9.9
