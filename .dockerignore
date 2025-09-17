@@ -10,3 +10,11 @@ __pycache__/
 *.egg
 *.env
 *.sqlite3
+.env
+media/
+staticfiles/
+*.log
+
+# Git
+.git
+.gitignore
