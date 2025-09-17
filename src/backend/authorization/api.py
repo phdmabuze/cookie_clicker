@@ -11,6 +11,12 @@ router = Router()
 
 @router.post("/web-app", response={201: str})
 def auth_by_webapp_init_data(request, login_data: LoginDataSchema):
+    """
+    Авторизация пользователя по init data. Полученный токен используется для доступа к остальным эндпоинтам.
+    :param request:
+    :param login_data:
+    :return:
+    """
     try:
         webapp_init_data = WebAppInitDataSchema.from_str(login_data.init_data)
     except:
