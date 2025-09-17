@@ -1,0 +1,12 @@
+.venv/
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.egg-info/
+*.egg
+*.env
+*.sqlite3
