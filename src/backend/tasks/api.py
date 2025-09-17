@@ -39,8 +39,9 @@ async def get_tasks(request, user_tg_id: int) -> list[TaskSchema]:
         if await utils.check_tg_subscription(user_tg_id, t.task.channel_id):
             tasks[t.task.id].status = TaskStatus.COMPLETED
             await TaskCompletion.objects.filter(pk=t.pk).aupdate(completed_at=utils.get_time())
+            user = await TgUser.objects.aget(tg_id=user_tg_id)
             await TgUser.objects.filter(tg_id=user_tg_id).aupdate(
-                balance=F("balance") + t.task.reward,
+                balance=user.get_balance_with_income() + t.task.reward,
                 balance_last_updated_at=utils.get_time(),
             )
             continue

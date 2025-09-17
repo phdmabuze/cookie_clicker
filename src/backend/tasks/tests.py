@@ -21,7 +21,7 @@ class TasksTest(TestCase):
         self.assertEqual(response.json(), [])
 
         test_task = await Task.objects.acreate(name="test_task", description="test_description", channel_id="1",
-                                               reward=1)
+                                               reward=100)
         response = await client.get(f"/{test_user.tg_id}")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()[0]["status"], "ready", response.json()[0])
@@ -52,7 +52,7 @@ class TasksTest(TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(response.json()[0]["status"], "pending", response.json()[0])
 
-            balance = (await TgUser.objects.aget(tg_id=test_user.tg_id)).balance
+            balance = (await TgUser.objects.aget(tg_id=test_user.tg_id)).get_balance_with_income()
             with patch("utils.check_tg_subscription", return_value=True):
                 response = await client.get(f"/{test_user.tg_id}")
                 self.assertEqual(response.status_code, 200)

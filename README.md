@@ -3,7 +3,7 @@
 ### Запуск
 1. Скопировать `.env.example` как `.env` и заполнить
 2. Запустить `docker compose up -d`
-3. Войти в контейнер `docker exec -it backend /bin/bash`, создать админа `python3 manage.py createsuperuser`.
+3. Войти в контейнер `docker exec -it cookie_clicker-backend-1 /bin/bas`, создать админа `python3 manage.py createsuperuser`.
 
 - **АДМИНКА** на /admin
 - **OPENAPI** на /api/docs
